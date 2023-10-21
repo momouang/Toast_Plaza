@@ -12,20 +12,32 @@ public class player : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    Vector3 velocity;
+    public float gravity = -9.81f;
+    public Transform groundCheck;
+    public float groundDistance;
+    public LayerMask groundMask;
+    public float jumpHeight = 3f;
 
-    //float camera_x;
-    //float camera_y;
-    //float camera_z;
-    //Vector3 camera_angle;
+    bool isGrounded;
 
 
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if(isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
 
         if(direction.magnitude >= 0.1f)
@@ -38,27 +50,25 @@ public class player : MonoBehaviour
             controller.Move(moveDir * speed * Time.deltaTime);
         }
 
-        /*camera_x = Input.GetAxis("Mouse X");
-        camera_y = Input.GetAxis("Mouse Y");
-
-        if (Input.GetKey(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            transform.Translate(Vector3.forward * Time.deltaTime);
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        if (Input.GetKey(KeyCode.A))
+
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            transform.Translate(Vector3.left * Time.deltaTime);
+            if(other.CompareTag("Toast"))
+            {
+                other.GetComponent<toastScore>().pickUp();
+            }
+            Debug.Log("collected");
         }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(Vector3.back * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * Time.deltaTime);
-        }*/
     }
 }
