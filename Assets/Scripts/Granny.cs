@@ -7,9 +7,26 @@ public class Granny : MonoBehaviour
     public GameObject[] toastPrefab;
     public Transform shootingPoint;
 
+    public float shootingTime = 10f;
+    public float currentTime;
+
+    private void Start()
+    {
+        currentTime = 0;
+    }
 
     private void Update()
     {
+        currentTime += Time.deltaTime;
+
+        if(currentTime >= shootingTime)
+        {
+            currentTime = 0;
+            growToast();
+            Debug.Log("shoot Toast");
+        }
+
+
         if(Input.GetKeyDown(KeyCode.Q))
         {
             growToast();

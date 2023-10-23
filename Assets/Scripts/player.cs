@@ -5,6 +5,7 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
 
+    [Header("Movement")]
     public CharacterController controller;
     public Transform cam;
 
@@ -21,14 +22,31 @@ public class player : MonoBehaviour
 
     bool isGrounded;
 
+    public int jumpCount = 5;
+
+    [Header("Health")]
+    public int maxHealth = 100;
+    public int currentHealth;
+    public GameManager healthBar;
+
+
+    private void Start()
+    {
+        currentHealth = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
+
+        //movement
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if(isGrounded && velocity.y < 0)
         {
+            jumpCount = 5;
             velocity.y = -2f;
         }
 
@@ -39,7 +57,7 @@ public class player : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-
+        //camera
         if(direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -50,11 +68,28 @@ public class player : MonoBehaviour
             controller.Move(moveDir * speed * Time.deltaTime);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) && jumpCount >0)
         {
+            jumpCount -= 1;
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+
+        //healthBar
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            takeDamage(20);
+        }
+
+
+       
+
+    }
+
+    void takeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.setHealth(currentHealth);
 
     }
 
