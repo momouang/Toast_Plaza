@@ -25,17 +25,11 @@ public class Granny : MonoBehaviour
             growToast();
             Debug.Log("shoot Toast");
         }
-
-
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            growToast();
-        }
     }
 
     void growToast()
     {
-        var toastNOW = Instantiate(toastPrefab[0], shootingPoint.position, Quaternion.identity);
+        var toastNOW = Instantiate(toastPrefab[Random.Range(0,3)], shootingPoint.position, Quaternion.identity);
         toastNOW.GetComponent<Rigidbody>().AddForce(0,0,1000f);
         
     }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [Header("Score")]
     public float totalScore = 0f;
     public TMP_Text score;
+    public bool scoreUP;
 
     [Header("HealthBar")]
     public Slider slider;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void gainScore(float point)   
     {
         totalScore += point;
+        scoreUP = true;
         updateUI();
     }
 

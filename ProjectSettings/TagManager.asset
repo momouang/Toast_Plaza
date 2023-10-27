@@ -7,6 +7,8 @@ TagManager:
   - CinemachineTarget
   - Toast
   - GameManager
+  - Toast_big
+  - Toast_flat
   layers:
   - Default
   - TransparentFX
