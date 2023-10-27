@@ -1,0 +1,4 @@
+repository "Toast_Plaza@syes0923momo@cloud"
+  path "/"
+    br "/main"
+    co "/main"
