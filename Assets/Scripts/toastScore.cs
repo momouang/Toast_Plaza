@@ -5,11 +5,15 @@ using UnityEngine;
 public class toastScore : MonoBehaviour
 {
 
-    public float point = 10f;
+    //public GameObject Toast_type;
+
+    public int point;
+    public GameManager gamemanager;
 
     public void pickUp()
     {
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().gainScore(point);
+        GameObject.FindObjectOfType<GameManager>().gainScore(point);
         Destroy(gameObject);
     }
+
 }

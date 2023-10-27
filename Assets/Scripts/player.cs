@@ -28,9 +28,10 @@ public class player : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public GameManager healthBar;
+    public toastScore toastScore;
 
 
-    private void Start()
+    public void Start()
     {
         currentHealth = maxHealth;
         healthBar.setMaxHealth(maxHealth);
@@ -38,7 +39,7 @@ public class player : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
 
         //movement
@@ -76,9 +77,9 @@ public class player : MonoBehaviour
 
 
         //healthBar
-        if(Input.GetKeyDown(KeyCode.E))
+        if(currentHealth <= 0)
         {
-            takeDamage(20);
+            currentHealth = 0;
         }
 
 
@@ -102,8 +103,36 @@ public class player : MonoBehaviour
             {
                 other.GetComponent<toastScore>().pickUp();
             }
+
+            if (other.CompareTag("Toast_big"))
+            {
+                other.GetComponent<toastScore>().pickUp();
+            }
+
+            if (other.CompareTag("Toast_flat"))
+            {
+                other.GetComponent<toastScore>().pickUp();
+            }
             Debug.Log("collected");
         }
 
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Toast"))
+        {
+            takeDamage(10);
+        }
+
+        if (other.CompareTag("Toast_big"))
+        {
+            takeDamage(50);
+        }
+
+        if (other.CompareTag("Toast_flat"))
+        {
+            takeDamage(20);
+        }
     }
 }
