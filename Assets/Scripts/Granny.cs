@@ -8,7 +8,7 @@ public class Granny : MonoBehaviour
     public Transform shootingPoint;
 
     public float shootingTime = 10f;
-    public float currentTime;
+    float currentTime;
 
     private void Start()
     {

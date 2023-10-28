@@ -27,14 +27,13 @@ public class player : MonoBehaviour
     [Header("Health")]
     public int maxHealth = 100;
     public int currentHealth;
-    public GameManager healthBar;
-    public toastScore toastScore;
+    public GameManager gamemanager;
 
 
     public void Start()
     {
         currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
+        gamemanager.setMaxHealth(maxHealth);
     }
 
 
@@ -69,6 +68,8 @@ public class player : MonoBehaviour
             controller.Move(moveDir * speed * Time.deltaTime);
         }
 
+
+        // jumping
         if(Input.GetKeyDown(KeyCode.Space) && jumpCount >0)
         {
             jumpCount -= 1;
@@ -83,14 +84,14 @@ public class player : MonoBehaviour
         }
 
 
-       
+
 
     }
 
-    void takeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        healthBar.setHealth(currentHealth);
+        gamemanager.setHealth(currentHealth);
 
     }
 
@@ -101,38 +102,11 @@ public class player : MonoBehaviour
         {
             if(other.CompareTag("Toast"))
             {
-                other.GetComponent<toastScore>().pickUp();
-            }
-
-            if (other.CompareTag("Toast_big"))
-            {
-                other.GetComponent<toastScore>().pickUp();
-            }
-
-            if (other.CompareTag("Toast_flat"))
-            {
-                other.GetComponent<toastScore>().pickUp();
+                other.gameObject.GetComponent<toastScore>().pickUp();
             }
             Debug.Log("collected");
         }
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Toast"))
-        {
-            takeDamage(10);
-        }
-
-        if (other.CompareTag("Toast_big"))
-        {
-            takeDamage(50);
-        }
-
-        if (other.CompareTag("Toast_flat"))
-        {
-            takeDamage(20);
-        }
-    }
 }
