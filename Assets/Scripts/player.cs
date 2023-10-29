@@ -68,7 +68,6 @@ public class player : MonoBehaviour
             controller.Move(moveDir * speed * Time.deltaTime);
         }
 
-
         // jumping
         if(Input.GetKeyDown(KeyCode.Space) && jumpCount >0)
         {
@@ -76,16 +75,27 @@ public class player : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Collider[] scannedObjects = Physics.OverlapSphere(transform.position, 1);
+            if(scannedObjects.Length != 0)
+            {
+                foreach(Collider g in scannedObjects)
+                {
+                    if(g.gameObject.CompareTag("Toast"))
+                    {
+                        g.gameObject.GetComponent<toastScore>().pickUp();
+                    }
+                }
+            }
+
+        }
 
         //healthBar
         if(currentHealth <= 0)
         {
             currentHealth = 0;
         }
-
-
-
-
     }
 
     public void TakeDamage(int damage)
@@ -95,6 +105,7 @@ public class player : MonoBehaviour
 
     }
 
+    /*
 
     private void OnTriggerStay(Collider other)
     {
@@ -108,5 +119,5 @@ public class player : MonoBehaviour
         }
 
     }
-
+    */
 }
