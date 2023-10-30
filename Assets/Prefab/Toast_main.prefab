@@ -41,12 +41,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7182029355167195005}
   - component: {fileID: 7182029355167195002}
-  - component: {fileID: 1284248104734800565}
   - component: {fileID: 2251690275600158909}
-  - component: {fileID: 1511567410930477161}
   - component: {fileID: 8966627269751985123}
   - component: {fileID: 8966627269751985122}
-  m_Layer: 0
+  - component: {fileID: -3012185630624275868}
+  m_Layer: 7
   m_Name: Toast_main
   m_TagString: Toast
   m_Icon: {fileID: 0}
@@ -82,22 +81,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1284248104734800565
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182029355167195004}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &2251690275600158909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,23 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: 10
   damagePoint: 10
-  gamemanager: {fileID: 5351449525894409849, guid: 7d377dd5e678148d996b15dc6af68119, type: 3}
-  player: {fileID: 7704527128740679440, guid: 5c6a55901a5fd4969bc04cf27f58fa77, type: 3}
+  gamemanager: {fileID: 0}
+  player: {fileID: 0}
   damageTime: 0.5
   isHurting: 0
---- !u!65 &1511567410930477161
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182029355167195004}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &8966627269751985123
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -179,3 +149,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &-3012185630624275868
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182029355167195004}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
