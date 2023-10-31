@@ -97,8 +97,12 @@ MonoBehaviour:
   damagePoint: 10
   gamemanager: {fileID: 0}
   player: {fileID: 0}
+  Aiscript: {fileID: 0}
   damageTime: 0.5
   isHurting: 0
+  eatNowTime: 3
+  pickupCount: 0
+  eatingAmount: 1
 --- !u!33 &8966627269751985123
 MeshFilter:
   m_ObjectHideFlags: 0

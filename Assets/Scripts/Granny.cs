@@ -24,7 +24,7 @@ public class Granny : MonoBehaviour
         {
             currentTime = 0;
             growToast();
-            Debug.Log("shoot Toast");
+            //Debug.Log("shoot Toast");
         }
     }
 

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/momo.unity
+    guid: 51be7cc0c25cf4b72957ecb6f9603170
   m_configObjects: {}

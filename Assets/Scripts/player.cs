@@ -58,7 +58,8 @@ public class player : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         //camera
-        if(direction.magnitude >= 0.1f)
+        Cursor.lockState = CursorLockMode.Locked;
+        if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); 
@@ -75,15 +76,15 @@ public class player : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Collider[] scannedObjects = Physics.OverlapSphere(transform.position, 1);
+            Collider[] scannedObjects = Physics.OverlapSphere(transform.position, 1.5f);
             if(scannedObjects.Length != 0)
             {
                 foreach(Collider g in scannedObjects)
                 {
                     if(g.gameObject.CompareTag("Toast"))
-                    {
+                    { 
                         g.gameObject.GetComponent<toastScore>().pickUp();
                     }
                 }

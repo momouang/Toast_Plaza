@@ -11,7 +11,7 @@ public class AIscript : MonoBehaviour
     public Transform currentTarget;
     public LayerMask isGround,toastTarget;
     public float distanceToPlayer;
-    public Granny granny;
+    //public toastScore toastscore;
 
     //patrolling
     public Vector3 walkpoint;
@@ -20,20 +20,29 @@ public class AIscript : MonoBehaviour
 
     //states
     public float sightRange;
-    public bool insightRange;
-    public bool inattackRange;
+
+    //timer
+    float currentTime;
+    public float eatingTime = 0f;
+    public bool isEating;
+    public int pickUpCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
        AI = GetComponent<NavMeshAgent>();
+       pickUpCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //distanceToPlayer = Vector3.Distance(currentTarget.position, transform.position);        
-        //inattackRange = Physics.CheckSphere(target.position, sightRange, toastTarget);
+
+
+        if(currentTime >= eatingTime)
+        {
+            isEating = true;
+        }
 
         if (currentTarget == null)
         {
@@ -117,11 +126,22 @@ public class AIscript : MonoBehaviour
         AI.SetDestination(currentTarget.position);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        if (collision.transform == currentTarget)
+        currentTime += Time.deltaTime;
+        if (collision.transform == currentTarget && isEating)
         {
-            Destroy(collision.gameObject);
+            AI.isStopped = true;
+            pickUpCount += 1;
+            if(pickUpCount >= 10)
+            {
+                Destroy(collision.gameObject);
+                pickUpCount = 0;
+                isEating = false;
+                AI.isStopped = false;
+                currentTime = 0;
+            }
+               
         }
     }
 }

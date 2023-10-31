@@ -148,8 +148,12 @@ MonoBehaviour:
   damagePoint: 20
   gamemanager: {fileID: 0}
   player: {fileID: 0}
+  Aiscript: {fileID: 0}
   damageTime: 2
   isHurting: 0
+  eatNowTime: 3
+  pickupCount: 0
+  eatingAmount: 2
 --- !u!65 &548163759509304353
 BoxCollider:
   m_ObjectHideFlags: 0
