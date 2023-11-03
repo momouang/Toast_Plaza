@@ -7,7 +7,7 @@ TagManager:
   - CinemachineTarget
   - Toast
   - GameManager
-  - Decal
+  - AI
   layers:
   - Default
   - TransparentFX

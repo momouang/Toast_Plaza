@@ -104,7 +104,9 @@ MonoBehaviour:
   eatNowTime: 3
   pickupCount: 0
   eatingAmount: 1
-  eatupParticle: {fileID: 3831592822573862165, guid: d56be9b6d7afc4389adb922685c9c919, type: 3}
+  eatup_player: {fileID: 3831592822573862165, guid: 35fa549e7348b40f6967fc3dfd0ae0e0, type: 3}
+  eatup_AI: {fileID: 3831592822573862165, guid: d56be9b6d7afc4389adb922685c9c919, type: 3}
+  hitBlast: {fileID: 6135285606166015181, guid: f928474641d914761be072d4e1389c12, type: 3}
 --- !u!33 &8966627269751985123
 MeshFilter:
   m_ObjectHideFlags: 0

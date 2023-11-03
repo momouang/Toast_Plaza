@@ -20,7 +20,9 @@ public class toastScore : MonoBehaviour
     public float eatingAmount = 0f;
     Vector3 changingScale;
 
-    public ParticleSystem eatupParticle;
+    public ParticleSystem eatup_player;
+    public ParticleSystem eatup_AI;
+    public ParticleSystem hitBlast;
 
     private void Start()
     {
@@ -47,6 +49,10 @@ public class toastScore : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && isHurting)
         {
+            ContactPoint contact = other.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point;
+            Instantiate(hitBlast, pos, rot);
             other.gameObject.GetComponent<player>().TakeDamage(damagePoint);
             Debug.Log(damagePoint);
         }
@@ -54,19 +60,27 @@ public class toastScore : MonoBehaviour
 
 
     // when player picks up the toast
-    public void pickUp()
+    public void pickUp(bool isPlayer)
     {
-        pickupCount += 1;
-        changingScale = gameObject.transform.localScale -= new Vector3(0.2f,0.2f,0.2f);
-        Debug.Log(changingScale);
-
-        if (pickupCount >= eatingAmount)
+        if(isPlayer)
         {
-            GameObject.FindObjectOfType<GameManager>().gainScore(point);
+            pickupCount += 1;
+            changingScale = gameObject.transform.localScale -= new Vector3(0.2f, 0.2f, 0.2f);
+            Debug.Log(changingScale);
 
-            Destroy(gameObject);
-            
+            if (pickupCount >= eatingAmount)
+            {
+                GameObject.FindObjectOfType<GameManager>().gainScore(point);
+                Instantiate(eatup_player, gameObject.transform.position, Quaternion.identity);
+                
+
+            }
         }
+        else
+        {
+            Instantiate(eatup_AI, gameObject.transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
     }
 
 }

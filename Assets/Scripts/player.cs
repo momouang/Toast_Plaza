@@ -36,7 +36,7 @@ public class player : MonoBehaviour
     float distance = 10f;
     int randomNumber;
 
-    public ParticleSystem eatupParticle;
+    //public ParticleSystem eatupParticle;
 
 
     public void Start()
@@ -113,8 +113,8 @@ public class player : MonoBehaviour
                 {
                     if(g.gameObject.CompareTag("Toast"))
                     { 
-                        g.gameObject.GetComponent<toastScore>().pickUp();
-                        Instantiate(eatupParticle, g.gameObject.transform);
+                        g.gameObject.GetComponent<toastScore>().pickUp(true);
+                        //Instantiate(eatupParticle, g.gameObject.transform);
 
                     }
                 }

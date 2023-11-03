@@ -12,7 +12,6 @@ public class AIscript : MonoBehaviour
     public Transform currentTarget;
     public LayerMask isGround,toastTarget;
     public float distanceToPlayer;
-    //public toastScore toastscore;
 
     //patrolling
     public Vector3 walkpoint;
@@ -60,6 +59,11 @@ public class AIscript : MonoBehaviour
             chasing();
             AiAnimator.SetBool("isWalking", true);
 
+        }
+
+        if(AI.isStopped)
+        {
+            AiAnimator.SetBool("isWalking",false);
         }
     }
 
@@ -142,7 +146,7 @@ public class AIscript : MonoBehaviour
             pickUpCount += 1;
             if(pickUpCount >= 10)
             {
-                Destroy(collision.gameObject);
+                collision.gameObject.GetComponent<toastScore>().pickUp(false);
                 pickUpCount = 0;
                 isEating = false;
                 currentTime = 0;

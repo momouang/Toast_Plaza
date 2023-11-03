@@ -218,8 +218,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3636101132606025004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.283, y: 0.217, z: 0.623}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.283, y: 0.217, z: 0.62299997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -331,6 +331,9 @@ MonoBehaviour:
   - {fileID: 8201138717690622888, guid: 18b60d1976edf489590202d400e67878, type: 3}
   shootingPoint: {fileID: 3636101132606025005}
   shootingTime: 10
+  walkpoint: {x: 0, y: 0, z: 0}
+  walkpointRange: 0
+  lookingPoint: {fileID: 0}
 --- !u!1 &5103798861310992269
 GameObject:
   m_ObjectHideFlags: 0
