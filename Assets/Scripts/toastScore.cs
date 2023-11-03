@@ -18,8 +18,9 @@ public class toastScore : MonoBehaviour
     public float eatNowTime = 3f;
     public int pickupCount = 0;
     public float eatingAmount = 0f;
-
     Vector3 changingScale;
+
+    public ParticleSystem eatupParticle;
 
     private void Start()
     {
@@ -62,7 +63,9 @@ public class toastScore : MonoBehaviour
         if (pickupCount >= eatingAmount)
         {
             GameObject.FindObjectOfType<GameManager>().gainScore(point);
+
             Destroy(gameObject);
+            
         }
     }
 

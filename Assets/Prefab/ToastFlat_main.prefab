@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 4546144103792102369}
   - component: {fileID: 548163759509304353}
   - component: {fileID: -4266815544880841766}
+  - component: {fileID: 7344671959683620365}
   m_Layer: 7
   m_Name: ToastFlat_main
   m_TagString: Toast
@@ -97,7 +98,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe5a00958b6a14ce1974f56c36014744, type: 2}
+  - {fileID: 2100000, guid: 748549fd852784cdcac44889663c4943, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,6 +155,7 @@ MonoBehaviour:
   eatNowTime: 3
   pickupCount: 0
   eatingAmount: 2
+  eatupParticle: {fileID: 3831592822573862165, guid: d56be9b6d7afc4389adb922685c9c919, type: 3}
 --- !u!65 &548163759509304353
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -183,3 +185,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &7344671959683620365
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8201138717690622888}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 1, z: 0.99999994}
+  m_Center: {x: 1.5, y: 1.5, z: 1.5}

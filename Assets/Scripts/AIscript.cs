@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class AIscript : MonoBehaviour
 {
 
+    Animator AiAnimator;
     private NavMeshAgent AI;
     public Transform[] target;
     public Transform currentTarget;
@@ -30,6 +31,7 @@ public class AIscript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       AiAnimator = GetComponentInChildren<Animator>();
        AI = GetComponent<NavMeshAgent>();
        pickUpCount = 0;
     }
@@ -37,8 +39,6 @@ public class AIscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if(currentTime >= eatingTime)
         {
             isEating = true;
@@ -50,12 +50,16 @@ public class AIscript : MonoBehaviour
             if(currentTarget == null)
             {
                 patrolling();
+                AiAnimator.SetBool("isWalking", true);
+
             }         
         }
 
         if (currentTarget != null)
         {
             chasing();
+            AiAnimator.SetBool("isWalking", true);
+
         }
     }
 
@@ -90,7 +94,8 @@ public class AIscript : MonoBehaviour
 
     private void patrolling()
     {
-        if(!walkpointSet)
+        //Debug.Log("Patrol");
+        if (!walkpointSet)
         {
             searchwalkPoint();
         }
@@ -123,23 +128,25 @@ public class AIscript : MonoBehaviour
 
     private void chasing()
     {
+        //Debug.Log("Chase");
         AI.SetDestination(currentTarget.position);
     }
 
     private void OnCollisionStay(Collision collision)
     {
+        AiAnimator.SetBool("isWalking", false);
         currentTime += Time.deltaTime;
         if (collision.transform == currentTarget && isEating)
         {
-            AI.isStopped = true;
+            AiAnimator.SetBool("isEating",true);           
             pickUpCount += 1;
             if(pickUpCount >= 10)
             {
                 Destroy(collision.gameObject);
                 pickUpCount = 0;
                 isEating = false;
-                AI.isStopped = false;
                 currentTime = 0;
+                AiAnimator.SetBool("isEating", false);
             }
                
         }
