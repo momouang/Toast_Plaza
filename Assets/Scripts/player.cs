@@ -133,8 +133,12 @@ public class player : MonoBehaviour
                     if(g.gameObject.CompareTag("Toast"))
                     { 
                         g.gameObject.GetComponent<toastScore>().pickUp(true);
-                        //Instantiate(eatupParticle, g.gameObject.transform);
+                        
 
+                    }
+                    else if(g.gameObject.CompareTag("Toast Fake"))
+                    {
+                        g.gameObject.GetComponent<ToastFake>().pickUp2(true);
                     }
                 }
             }
@@ -161,8 +165,6 @@ public class player : MonoBehaviour
             transform.position = snappingPoint.transform.position + new Vector3(0,0.7f,0);
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                //transform.position = snappingPoint.transform.position + new Vector3(0,0,5);
-                //snappingPoint.SetActive(false);
                 isSnapping = false;
             }
         }
@@ -207,7 +209,6 @@ public class player : MonoBehaviour
         {
             isSnapping = true;
             snappingPoint = other.gameObject;
-            //offset = transform.position - snappingPoint.transform.position;
         }
     }
 }

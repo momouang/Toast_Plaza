@@ -81,7 +81,7 @@ public class Granny : MonoBehaviour
     void growToast()
     {
         Instantiate(Fire, shootingPoint.position, Quaternion.LookRotation(shootingPoint.position - backRPG.position));
-        var toastNOW = Instantiate(toastPrefab[Random.Range(0,3)], shootingPoint.position, Quaternion.identity);
+        var toastNOW = Instantiate(toastPrefab[Random.Range(0,4)], shootingPoint.position, Quaternion.identity);
         
         toastNOW.GetComponent<Rigidbody>().AddForce((shootingPoint.position - backRPG.position)* 150f);
         
