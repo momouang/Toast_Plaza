@@ -7,8 +7,10 @@ TagManager:
   - CinemachineTarget
   - Toast
   - GameManager
-  - Toast_big
-  - Toast_flat
+  - AI
+  - Decal
+  - Granny
+  - Toast Fake
   layers:
   - Default
   - TransparentFX
@@ -16,9 +18,9 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Toast
+  - Decal
   - 
   - 
   - 

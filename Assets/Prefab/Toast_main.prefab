@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &82538520904874758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5530409008808247267}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5530409008808247267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82538520904874758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.543, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7182029355167195005}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7182029355167195004
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,12 +41,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7182029355167195005}
   - component: {fileID: 7182029355167195002}
-  - component: {fileID: 1284248104734800565}
   - component: {fileID: 2251690275600158909}
-  - component: {fileID: 1511567410930477161}
   - component: {fileID: 8966627269751985123}
   - component: {fileID: 8966627269751985122}
-  m_Layer: 0
+  - component: {fileID: -3012185630624275868}
+  - component: {fileID: 4910670116431479433}
+  m_Layer: 7
   m_Name: Toast_main
   m_TagString: Toast
   m_Icon: {fileID: 0}
@@ -33,7 +64,8 @@ Transform:
   m_LocalPosition: {x: -3.73, y: -0.29000002, z: 2.1697087}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5530409008808247267}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,22 +82,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1284248104734800565
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182029355167195004}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &2251690275600158909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,20 +95,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: 10
+  damagePoint: 10
   gamemanager: {fileID: 0}
---- !u!65 &1511567410930477161
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7182029355167195004}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  player: {fileID: 0}
+  Aiscript: {fileID: 0}
+  damageTime: 0.5
+  isHurting: 0
+  eatNowTime: 3
+  pickupCount: 0
+  eatingAmount: 1
+  eatup_player: {fileID: 3831592822573862165, guid: 35fa549e7348b40f6967fc3dfd0ae0e0, type: 3}
+  eatup_AI: {fileID: 3831592822573862165, guid: d56be9b6d7afc4389adb922685c9c919, type: 3}
+  hitBlast: {fileID: 6135285606166015181, guid: f928474641d914761be072d4e1389c12, type: 3}
 --- !u!33 &8966627269751985123
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -143,3 +157,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &-3012185630624275868
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182029355167195004}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &4910670116431479433
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182029355167195004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0}

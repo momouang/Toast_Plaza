@@ -3,9 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("GameScene")]
+    public player player;
+    public GameObject Overlay;
+    public TMP_Text totalText;
+    public TMP_Text poopTotal;
+    public TMP_Text hitTotal;
+    public bool isPlaying;
+    public bool gameOver;
+    public float restartDelay = 2f;
 
     [Header("Score")]
     public float totalScore = 0f;
@@ -18,12 +29,47 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public Timer timer;
 
+    private void Start()
+    {
+        isPlaying = true;
+        Overlay.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     //Updating Time
     public void Update()
     {
         timer.countDown();
     }
+
+
+    //GameOver
+    public void endGame()
+    {
+        if(gameOver == false)
+        {
+            gameOver = true;
+            isPlaying = false;
+            Cursor.lockState = CursorLockMode.Confined;
+            Overlay.SetActive(true);
+            score.gameObject.SetActive(false);
+            totalText.text = totalScore.ToString();
+            poopTotal.text = "Pooped\n" + player.poopCount + " times";
+            hitTotal.text = "Hitted\n" + player.hitCount + " times";
+        }
+
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene("momo");
+
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+
 
     //healthBar Manager
     public void setMaxHealth(int health)
@@ -43,6 +89,8 @@ public class GameManager : MonoBehaviour
         scoreUP = true;
         updateUI();
     }
+
+
 
     void updateUI()
     {

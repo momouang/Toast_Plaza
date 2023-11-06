@@ -6,6 +6,7 @@ public class player : MonoBehaviour
 {
 
     [Header("Movement")]
+    Animator playerAnimation;
     public CharacterController controller;
     public Transform cam;
 
@@ -13,53 +14,94 @@ public class player : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
 
+    [Header("Jumping")]
     Vector3 velocity;
     public float gravity = -9.81f;
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
     public float jumpHeight = 3f;
-
     bool isGrounded;
-
     public int jumpCount = 5;
 
     [Header("Health")]
+    public int hitCount;
     public int maxHealth = 100;
     public int currentHealth;
-    public GameManager healthBar;
-    public toastScore toastScore;
+    public GameManager gamemanager;
+
+    [Header("Poop")]
+    public GameObject[] poop;
+    public GameObject[] poopImg;
+    public Transform assHole;
+    float distance = 10f;
+    int randomNumber;
+    public int poopCount;
+
+    [Header("Snapping")]
+    public GameObject snappingPoint;
+    public bool isSnapping;
+    public Vector3 offset;
+
 
 
     public void Start()
     {
+        playerAnimation = GetComponentInChildren<Animator>();  
         currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
+        gamemanager.setMaxHealth(maxHealth);
+
+        isSnapping = false;
     }
 
 
     // Update is called once per frame
     public void Update()
     {
+        Vector3 direction = Vector3.zero;
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        bool isMoving = horizontal != 0 || vertical != 0;
+
+       
 
         //movement
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(isGrounded && velocity.y < 0)
+        if(gamemanager.isPlaying)
         {
-            jumpCount = 5;
-            velocity.y = -2f;
+            if (isGrounded && velocity.y < 0)
+            {
+                jumpCount = 5;
+                velocity.y = -2f;
+                playerAnimation.SetBool("isFlying", false);
+            }
+
+            
+            direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
+
+            if (isMoving)
+            {
+                playerAnimation.SetBool("isWalking", true);
+            }
+            else
+            {
+                playerAnimation.SetBool("isWalking", false);
+            }
         }
+        else
+        {
+            playerAnimation.SetBool("isWalking", false);
+        }
+        
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
 
         //camera
-        if(direction.magnitude >= 0.1f)
+        
+        if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); 
@@ -69,11 +111,43 @@ public class player : MonoBehaviour
             controller.Move(moveDir * speed * Time.deltaTime);
         }
 
+        // jumping
         if(Input.GetKeyDown(KeyCode.Space) && jumpCount >0)
         {
+            playerAnimation.SetBool("isFlying", true);
             jumpCount -= 1;
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+
+
+
+        //eating Toast
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            playerAnimation.SetBool("isEating", true);
+            Collider[] scannedObjects = Physics.OverlapSphere(transform.position, 1.5f);
+            if(scannedObjects.Length != 0)
+            {
+                foreach(Collider g in scannedObjects)
+                {
+                    if(g.gameObject.CompareTag("Toast"))
+                    { 
+                        g.gameObject.GetComponent<toastScore>().pickUp(true);
+                        
+
+                    }
+                    else if(g.gameObject.CompareTag("Toast Fake"))
+                    {
+                        g.gameObject.GetComponent<ToastFake>().pickUp2(true);
+                    }
+                }
+            }
+        }
+        else
+        {
+            playerAnimation.SetBool("isEating",false);
+        }
+
 
 
         //healthBar
@@ -82,57 +156,59 @@ public class player : MonoBehaviour
             currentHealth = 0;
         }
 
-
-       
-
-    }
-
-    void takeDamage(int damage)
-    {
-        currentHealth -= damage;
-        healthBar.setHealth(currentHealth);
-
-    }
+        pooping();
+        randomNumber = Random.Range(0,3);
 
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if(isSnapping)
         {
-            if(other.CompareTag("Toast"))
+            transform.position = snappingPoint.transform.position + new Vector3(0,0.7f,0);
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                other.GetComponent<toastScore>().pickUp();
+                isSnapping = false;
             }
-
-            if (other.CompareTag("Toast_big"))
-            {
-                other.GetComponent<toastScore>().pickUp();
-            }
-
-            if (other.CompareTag("Toast_flat"))
-            {
-                other.GetComponent<toastScore>().pickUp();
-            }
-            Debug.Log("collected");
         }
 
     }
 
+
+    //take damage
+    public void TakeDamage(int damage)
+    {
+        hitCount += 1;
+        currentHealth -= damage;
+        gamemanager.setHealth(currentHealth);
+
+    }
+
+
+    //Poop
+    private void pooping()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            poopCount += 1;
+            RaycastHit hit;
+
+            Instantiate(poop[0], assHole.transform.position,Quaternion.identity);
+            if(Physics.Raycast(assHole.transform.position,assHole.transform.forward,out hit,distance))
+            {
+                //Debug.Log("poop");
+                GameObject newPoop = Instantiate(poopImg[randomNumber], hit.point + new Vector3(0,-0.09f,0), Quaternion.FromToRotation(Vector3.forward,hit.normal));
+                newPoop.transform.parent = hit.transform;
+                
+            }
+        }
+    }
+
+
+    //snapping
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Toast"))
+        if(other.tag == "Granny")
         {
-            takeDamage(10);
-        }
-
-        if (other.CompareTag("Toast_big"))
-        {
-            takeDamage(50);
-        }
-
-        if (other.CompareTag("Toast_flat"))
-        {
-            takeDamage(20);
+            isSnapping = true;
+            snappingPoint = other.gameObject;
         }
     }
 }
