@@ -11,23 +11,22 @@ public class toastScore : MonoBehaviour
     public player player;
     public AIscript Aiscript;
 
+    [Header("When Hitting Player")]
     public float damageTime = 0.5f;
     float currentTime;
     public bool isHurting;
 
+    [Header("Eating Toast")]
     public float eatNowTime = 3f;
     public int pickupCount = 0;
     public float eatingAmount = 0f;
     Vector3 changingScale;
 
+    [Header("Particles")]
     public ParticleSystem eatup_player;
     public ParticleSystem eatup_AI;
     public ParticleSystem hitBlast;
 
-    private void Start()
-    {
-        //isEating = false;
-    }
 
     public void Update()
     {
@@ -54,7 +53,6 @@ public class toastScore : MonoBehaviour
             Vector3 pos = contact.point;
             Instantiate(hitBlast, pos, rot);
             other.gameObject.GetComponent<player>().TakeDamage(damagePoint);
-            Debug.Log(damagePoint);
         }
     }
 

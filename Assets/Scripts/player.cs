@@ -25,6 +25,7 @@ public class player : MonoBehaviour
     public int jumpCount = 5;
 
     [Header("Health")]
+    public int hitCount;
     public int maxHealth = 100;
     public int currentHealth;
     public GameManager gamemanager;
@@ -35,8 +36,13 @@ public class player : MonoBehaviour
     public Transform assHole;
     float distance = 10f;
     int randomNumber;
+    public int poopCount;
 
-    //public ParticleSystem eatupParticle;
+    [Header("Snapping")]
+    public GameObject snappingPoint;
+    public bool isSnapping;
+    public Vector3 offset;
+
 
 
     public void Start()
@@ -44,34 +50,47 @@ public class player : MonoBehaviour
         playerAnimation = GetComponentInChildren<Animator>();  
         currentHealth = maxHealth;
         gamemanager.setMaxHealth(maxHealth);
+
+        isSnapping = false;
     }
 
 
     // Update is called once per frame
     public void Update()
     {
+        Vector3 direction = Vector3.zero;
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        bool isMoving = horizontal != 0 || vertical != 0;
+
+       
+
         //movement
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(isGrounded && velocity.y < 0)
+        if(gamemanager.isPlaying)
         {
-            jumpCount = 5;
-            velocity.y = -2f;
-            playerAnimation.SetBool("isFlying",false);
-        }
+            if (isGrounded && velocity.y < 0)
+            {
+                jumpCount = 5;
+                velocity.y = -2f;
+                playerAnimation.SetBool("isFlying", false);
+            }
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+            
+            direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+            velocity.y += gravity * Time.deltaTime;
+            controller.Move(velocity * Time.deltaTime);
 
-        bool isMoving = horizontal != 0 || vertical != 0;
-
-        if (isMoving)
-        {
-            playerAnimation.SetBool("isWalking", true);
+            if (isMoving)
+            {
+                playerAnimation.SetBool("isWalking", true);
+            }
+            else
+            {
+                playerAnimation.SetBool("isWalking", false);
+            }
         }
         else
         {
@@ -81,7 +100,7 @@ public class player : MonoBehaviour
 
 
         //camera
-        Cursor.lockState = CursorLockMode.Locked;
+        
         if (direction.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
@@ -136,9 +155,25 @@ public class player : MonoBehaviour
         pooping();
         randomNumber = Random.Range(0,3);
 
+
+        if(isSnapping)
+        {
+            transform.position = snappingPoint.transform.position + new Vector3(0,0.7f,0);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                //transform.position = snappingPoint.transform.position + new Vector3(0,0,5);
+                //snappingPoint.SetActive(false);
+                isSnapping = false;
+            }
+        }
+
     }
+
+
+    //take damage
     public void TakeDamage(int damage)
     {
+        hitCount += 1;
         currentHealth -= damage;
         gamemanager.setHealth(currentHealth);
 
@@ -146,11 +181,11 @@ public class player : MonoBehaviour
 
 
     //Poop
-
     private void pooping()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
+            poopCount += 1;
             RaycastHit hit;
 
             Instantiate(poop[0], assHole.transform.position,Quaternion.identity);
@@ -165,4 +200,14 @@ public class player : MonoBehaviour
     }
 
 
+    //snapping
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Granny")
+        {
+            isSnapping = true;
+            snappingPoint = other.gameObject;
+            //offset = transform.position - snappingPoint.transform.position;
+        }
+    }
 }

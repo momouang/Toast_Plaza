@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4405601872411656147}
   - component: {fileID: 3831592822573862165}
   - component: {fileID: 4237814800695182454}
+  - component: {fileID: 532817621054282003}
   m_Layer: 0
   m_Name: eatupAi
   m_TagString: Untagged
@@ -4870,3 +4871,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &532817621054282003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463795126338565386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bb21be355f44e72a0e412ea2f00227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 1

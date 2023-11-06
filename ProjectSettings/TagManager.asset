@@ -8,6 +8,8 @@ TagManager:
   - Toast
   - GameManager
   - AI
+  - Decal
+  - Granny
   layers:
   - Default
   - TransparentFX

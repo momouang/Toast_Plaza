@@ -5,14 +5,14 @@ using UnityEngine.AI;
 
 public class Granny : MonoBehaviour
 {
-    //shooting system
+    [Header("Shooting System")]
     public GameObject[] toastPrefab;
     public Transform shootingPoint;
     public float shootingTime = 10f;
     float currentTime;
     public ParticleSystem Fire;
 
-    //partrolling system
+    [Header("Patrolling System")]
     private NavMeshAgent grannyAi;
     public Vector3 walkpoint;
     bool walkpointSet;
@@ -45,7 +45,6 @@ public class Granny : MonoBehaviour
 
     private void patrolling()
     {
-        //Debug.Log("Patrol");
         if (!walkpointSet)
         {
             searchwalkPoint();

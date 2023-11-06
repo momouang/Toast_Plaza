@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class AIscript : MonoBehaviour
 {
 
+    [Header("Main")]
     Animator AiAnimator;
     private NavMeshAgent AI;
     public Transform[] target;
@@ -13,15 +14,15 @@ public class AIscript : MonoBehaviour
     public LayerMask isGround,toastTarget;
     public float distanceToPlayer;
 
-    //patrolling
+    [Header("Partolling System")]
     public Vector3 walkpoint;
     bool walkpointSet;
     public float walkpointRange;
 
-    //states
+    [Header("States")]
     public float sightRange;
 
-    //timer
+    [Header("Timer")]
     float currentTime;
     public float eatingTime = 0f;
     public bool isEating;
@@ -98,7 +99,6 @@ public class AIscript : MonoBehaviour
 
     private void patrolling()
     {
-        //Debug.Log("Patrol");
         if (!walkpointSet)
         {
             searchwalkPoint();
@@ -132,7 +132,6 @@ public class AIscript : MonoBehaviour
 
     private void chasing()
     {
-        //Debug.Log("Chase");
         AI.SetDestination(currentTarget.position);
     }
 
