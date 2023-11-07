@@ -9,7 +9,7 @@ public class KidSystem : MonoBehaviour
     public float startWaitTime = 4;
     public float timeToRotate = 2;
     public float speedWalk = 6;
-    public float speedRun = 9;
+    public float speedRun = 9; //Kid currently moves too fast.
 
     public float viewRadius = 15;
     public float viewAngle = 90;
