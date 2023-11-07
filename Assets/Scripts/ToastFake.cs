@@ -6,7 +6,6 @@ public class ToastFake : MonoBehaviour
 {
     public int point;
     public int damagePoint;
-    //public GameManager gamemanager;
     public player player;
     public AIscript Aiscript;
     public GameObject[] toastPrefab;
@@ -23,7 +22,7 @@ public class ToastFake : MonoBehaviour
     Vector3 changingScale;
 
     [Header("Particles")]
-    public ParticleSystem eatup_player;
+    public ParticleSystem eatup_rainbow;
     public ParticleSystem eatup_AI;
     public ParticleSystem hitBlast;
 
@@ -68,12 +67,15 @@ public class ToastFake : MonoBehaviour
 
             if (pickupCount >= eatingAmount)
             {
-                var toastNOW = Instantiate(toastPrefab[2], gameObject.transform.position, Quaternion.identity);
-
-                toastNOW.GetComponent<Rigidbody>().AddForce(gameObject.transform.position * 150f);
-                Instantiate(eatup_player, gameObject.transform.position, Quaternion.identity);
+                GameObject.FindObjectOfType<GameManager>().gainScore(point);
+                var toastNOW = Instantiate(toastPrefab[0], gameObject.transform.position, Quaternion.identity);
+                var toastNOW1 = Instantiate(toastPrefab[1], gameObject.transform.position, Quaternion.identity);
+                var toastNOW2 = Instantiate(toastPrefab[2], gameObject.transform.position, Quaternion.identity);
+                toastNOW.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * 150f);
+                toastNOW1.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * 150f);
+                toastNOW2.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * 150f);
+                Instantiate(eatup_rainbow, gameObject.transform.position, Quaternion.identity);
                 Destroy(gameObject);
-                //Debug.Log("fake eating");
             }
         }
         else
