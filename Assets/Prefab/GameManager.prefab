@@ -44,8 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e343bfdfd59d485a852c3aa50fd2fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  Overlay: {fileID: 0}
+  totalText: {fileID: 0}
+  poopTotal: {fileID: 0}
+  hitTotal: {fileID: 0}
+  isPlaying: 0
+  gameOver: 0
+  restartDelay: 2
   totalScore: 0
-  score: {fileID: 2029913473183324187, guid: 04ad8bddcea3241b593e0f0303ebbbf8, type: 3}
+  score: {fileID: 0}
   scoreUP: 0
-  slider: {fileID: 2835835640449089703, guid: accabf53ed7244c898337049c430d0bf, type: 3}
-  timer: {fileID: 7393795555914546439, guid: d48ed0e86b9904198b155e73ea50e875, type: 3}
+  slider: {fileID: 0}
+  timer: {fileID: 0}
