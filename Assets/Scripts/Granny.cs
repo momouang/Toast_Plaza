@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Granny : MonoBehaviour
 {
+    Animator grannyAnimator;
+
     [Header("Shooting System")]
     public GameObject[] toastPrefab;
     public Transform shootingPoint;
@@ -14,6 +16,7 @@ public class Granny : MonoBehaviour
 
     [Header("Patrolling System")]
     private NavMeshAgent grannyAi;
+    public LayerMask obstacleMask;
     public Vector3 walkpoint;
     bool walkpointSet;
     public float walkpointRange;
@@ -25,11 +28,13 @@ public class Granny : MonoBehaviour
     {
         currentTime = 0;
         grannyAi = GetComponent<NavMeshAgent>();
+        grannyAnimator = GetComponent<Animator>();
 
     }
 
     private void Update()
     {
+
         currentTime += Time.deltaTime;
 
         if(currentTime >= shootingTime)
@@ -45,6 +50,7 @@ public class Granny : MonoBehaviour
 
     private void patrolling()
     {
+        grannyAnimator.SetBool("isWalking", true); 
         if (!walkpointSet)
         {
             searchwalkPoint();
@@ -57,7 +63,7 @@ public class Granny : MonoBehaviour
 
         Vector3 distancetowalkPoint = transform.position - walkpoint;
 
-        if (distancetowalkPoint.magnitude < 1f)
+        if (distancetowalkPoint.magnitude < 5f)
         {
             walkpointSet = false;
         }
@@ -67,14 +73,17 @@ public class Granny : MonoBehaviour
 
     private void searchwalkPoint()
     {
+        NavMeshHit hit;
         float Z = Random.Range(-walkpointRange, walkpointRange);
         float X = Random.Range(-walkpointRange, walkpointRange);
 
-        walkpoint = new Vector3(transform.position.x + X, transform.position.y, transform.position.z + Z);
+        walkpoint = new Vector3(transform.position.x + X, transform.position.y, transform.position.z +Z );
 
-        if (Physics.Raycast(walkpoint, -transform.up, 2f))
+        if (Physics.Raycast(walkpoint,-transform.up, 2f) && walkpoint.x > -18 && walkpoint.x < 18 && walkpoint.z > -15 && walkpoint.z < 15)
         {
             walkpointSet = true;
+            //grannyAi.ResetPath();
+            //Debug.Log("walkpointFalse");
         }
     }
 
