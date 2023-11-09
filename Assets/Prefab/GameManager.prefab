@@ -53,7 +53,7 @@ MonoBehaviour:
   gameOver: 0
   restartDelay: 2
   totalScore: 0
-  score: {fileID: 2029913473183324187, guid: 04ad8bddcea3241b593e0f0303ebbbf8, type: 3}
+  score: {fileID: 0}
   scoreUP: 0
-  slider: {fileID: 2835835640449089703, guid: accabf53ed7244c898337049c430d0bf, type: 3}
-  timer: {fileID: 7393795555914546439, guid: d48ed0e86b9904198b155e73ea50e875, type: 3}
+  slider: {fileID: 0}
+  timer: {fileID: 0}

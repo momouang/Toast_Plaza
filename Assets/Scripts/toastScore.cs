@@ -64,7 +64,7 @@ public class toastScore : MonoBehaviour
         {
             pickupCount += 1;
             changingScale = gameObject.transform.localScale -= new Vector3(0.2f, 0.2f, 0.2f);
-            Debug.Log(changingScale);
+            //Debug.Log(changingScale);
 
             if (pickupCount >= eatingAmount)
             {

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class KidSystem : MonoBehaviour
 {
+    Animator kidAnimator;
     public NavMeshAgent navMeshAgent;
     public float startWaitTime = 4;
     public float timeToRotate = 2;
@@ -34,6 +35,7 @@ public class KidSystem : MonoBehaviour
 
     void Start()
     {
+        kidAnimator = GetComponent<Animator>();
         m_PlayerPosition = Vector3.zero;
         m_IsPatrol = true;
         m_CaughtPlayer = false;
@@ -50,6 +52,7 @@ public class KidSystem : MonoBehaviour
 
     void Update()
     {
+        //kidAnimator.SetBool("isWalking", true);
         EnvironmentView();
 
         if (!m_IsPatrol)
@@ -66,14 +69,22 @@ public class KidSystem : MonoBehaviour
 
     private void Chasing()
     {
-
+        
         m_PlayerNear = false;
         playerLastPosition = Vector3.zero;
+        Vector3 distoPlayer = m_PlayerPosition - transform.position;
 
         if (!m_CaughtPlayer)
         {
             Move(speedRun);
             navMeshAgent.SetDestination(m_PlayerPosition);
+        }
+        else if( distoPlayer.magnitude >= viewRadius)
+        {
+            Debug.Log("stop Chasing");
+            m_PlayerInRange = false;
+            m_IsPatrol = true;
+            NextPoint();
         }
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
@@ -120,7 +131,9 @@ public class KidSystem : MonoBehaviour
             navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
             if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
-                if (m_WaitTime <= 0)
+                NextPoint();
+                Move(speedWalk);
+                /*if (m_WaitTime <= 0)
                 {
                     NextPoint();
                     Move(speedWalk);
@@ -130,7 +143,7 @@ public class KidSystem : MonoBehaviour
                 {
                     Stop();
                     m_WaitTime -= Time.deltaTime;
-                }
+                }*/
             }
         }
     }
@@ -208,5 +221,14 @@ public class KidSystem : MonoBehaviour
                 m_PlayerPosition = playerTransform.transform.position;
             }
         }
+    }
+
+
+    private void OnCollisionEnter(Collision collider)
+    {
+        CaughtPlayer();
+        //navMeshAgent.SetDestination(waypoints[1].position);
+        Patroling();
+        m_PlayerInRange = false;
     }
 }
