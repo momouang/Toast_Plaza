@@ -33,6 +33,11 @@ public class KidSystem : MonoBehaviour
     bool m_IsPatrol;
     bool m_CaughtPlayer;
 
+    [Header("Losing Point when Caught Player")]
+    public int point;
+    public ParticleSystem hitParticle;
+    public player player;
+
     void Start()
     {
         kidAnimator = GetComponent<Animator>();
@@ -226,9 +231,20 @@ public class KidSystem : MonoBehaviour
 
     private void OnCollisionEnter(Collision collider)
     {
-        CaughtPlayer();
-        //navMeshAgent.SetDestination(waypoints[1].position);
-        Patroling();
-        m_PlayerInRange = false;
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            player.playerAnimation.SetTrigger("isFainting");
+            //Debug.Log("hit");
+            ContactPoint contact = collider.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point;
+            Instantiate(hitParticle, pos, rot);
+            CaughtPlayer();
+
+            float velocity = 1.5f;
+            GameObject.FindObjectOfType<GameManager>().loseScore(50);
+            player.controller.Move(-pos * velocity + transform.up * 5f);
+        }
+
     }
 }

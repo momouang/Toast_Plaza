@@ -6,7 +6,7 @@ public class player : MonoBehaviour
 {
 
     [Header("Movement")]
-    Animator playerAnimation;
+    public Animator playerAnimation;
     public CharacterController controller;
     public Transform cam;
 
@@ -42,6 +42,8 @@ public class player : MonoBehaviour
     public GameObject snappingPoint;
     public bool isSnapping;
     public Vector3 offset;
+
+    public bool isfleeing;
 
 
 
@@ -124,7 +126,7 @@ public class player : MonoBehaviour
         //eating Toast
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            playerAnimation.SetBool("isEating", true);
+            playerAnimation.SetTrigger("isEating");
             Collider[] scannedObjects = Physics.OverlapSphere(transform.position, 1.5f);
             if(scannedObjects.Length != 0)
             {
@@ -142,10 +144,6 @@ public class player : MonoBehaviour
                     }
                 }
             }
-        }
-        else
-        {
-            playerAnimation.SetBool("isEating",false);
         }
 
 
@@ -209,6 +207,15 @@ public class player : MonoBehaviour
         {
             isSnapping = true;
             snappingPoint = other.gameObject;
+        }
+        
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "AI" && Input.GetKeyDown(KeyCode.C))
+        {
+            isfleeing = true;
         }
     }
 }
