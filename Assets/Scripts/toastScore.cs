@@ -70,15 +70,15 @@ public class toastScore : MonoBehaviour
             {
                 GameObject.FindObjectOfType<GameManager>().gainScore(point);
                 Instantiate(eatup_player, gameObject.transform.position, Quaternion.identity);
-                
-
+                Destroy(gameObject);
             }
         }
         else
         {
             Instantiate(eatup_AI, gameObject.transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+
     }
 
 }

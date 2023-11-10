@@ -63,7 +63,7 @@ public class ToastFake : MonoBehaviour
         {
             pickupCount += 1;
             changingScale = gameObject.transform.localScale += new Vector3(1f, 1f, 1f);
-            Debug.Log(changingScale);
+            //Debug.Log(changingScale);
 
             if (pickupCount >= eatingAmount)
             {

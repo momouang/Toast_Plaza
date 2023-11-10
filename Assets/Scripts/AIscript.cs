@@ -7,11 +7,13 @@ public class AIscript : MonoBehaviour
 {
 
     [Header("Main")]
+    public GameObject player;
+    public player playerScript;
     Animator AiAnimator;
     private NavMeshAgent AI;
     public Transform[] target;
     public Transform currentTarget;
-    public LayerMask isGround,toastTarget;
+    public LayerMask isGround, toastTarget;
     public float distanceToPlayer;
 
     [Header("Partolling System")]
@@ -28,43 +30,78 @@ public class AIscript : MonoBehaviour
     public bool isEating;
     public int pickUpCount = 0;
 
+    bool isfleeing;
+
     // Start is called before the first frame update
     void Start()
     {
-       AiAnimator = GetComponentInChildren<Animator>();
-       AI = GetComponent<NavMeshAgent>();
-       pickUpCount = 0;
+        AiAnimator = GetComponentInChildren<Animator>();
+        AI = GetComponent<NavMeshAgent>();
+        pickUpCount = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentTime >= eatingTime)
+        
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        /*if(playerScript.isfleeing == true)
+        {
+            Debug.Log("fleeing");
+            fleeing();
+        }
+        else if(distance >= 10f)
+        {
+            AiAnimator.SetBool("isFleeing", false);
+            playerScript.isfleeing = false;
+            searchTarget();
+        }*/
+
+        if(distance <= 3f)
+        {
+            fleeing();
+        }
+        else if(distance >= 8f)
+        {
+            isfleeing = false;
+            AiAnimator.SetBool("isFleeing", false);
+            patrolling();
+        }
+
+        if (isfleeing)
+        {
+            AI.speed = 5f;
+        }
+        else
+        {
+            AI.speed = 2.5f;
+        }
+
+        //------------------------------------------
+
+        if (currentTime >= eatingTime)
         {
             isEating = true;
         }
 
-        if (currentTarget == null)
+        if (currentTarget == null && !isfleeing)
         {
             searchTarget();
-            if(currentTarget == null)
+            if (currentTarget == null)
             {
                 patrolling();
-                AiAnimator.SetBool("isWalking", true);
-
-            }         
+            }
         }
 
-        if (currentTarget != null)
+        if (currentTarget != null && !isfleeing)
         {
             chasing();
-            AiAnimator.SetBool("isWalking", true);
-
         }
 
-        if(AI.isStopped)
+        if (AI.isStopped && !isfleeing)
         {
-            AiAnimator.SetBool("isWalking",false);
+            AiAnimator.SetBool("isWalking", false);
         }
     }
 
@@ -74,18 +111,18 @@ public class AIscript : MonoBehaviour
         float nearDistance = 99f;
         Collider[] scannedObjects = Physics.OverlapSphere(transform.position, sightRange, toastTarget);
         if (scannedObjects.Length != 0)
-        {         
+        {
             foreach (Collider g in scannedObjects)
             {
-                if(near == null)
+                if (near == null)
                 {
                     near = g.gameObject.transform;
-                    nearDistance = Vector3.Distance(transform.position,near.position);
+                    nearDistance = Vector3.Distance(transform.position, near.position);
                 }
-                else if(Vector3.Distance(transform.position,g.transform.position) < nearDistance)
+                else if (Vector3.Distance(transform.position, g.transform.position) < nearDistance)
                 {
                     near = g.gameObject.transform;
-                    nearDistance = Vector3.Distance(transform.position,g.transform.position);
+                    nearDistance = Vector3.Distance(transform.position, g.transform.position);
                 }
             }
         }
@@ -99,19 +136,20 @@ public class AIscript : MonoBehaviour
 
     private void patrolling()
     {
+        AiAnimator.SetBool("isWalking", true);
         if (!walkpointSet)
         {
             searchwalkPoint();
         }
 
-        if(walkpointSet)
+        if (walkpointSet)
         {
             AI.SetDestination(walkpoint);
         }
 
         Vector3 distancetowalkPoint = transform.position - walkpoint;
 
-        if(distancetowalkPoint.magnitude < 1f)
+        if (distancetowalkPoint.magnitude < 1f)
         {
             walkpointSet = false;
         }
@@ -122,7 +160,7 @@ public class AIscript : MonoBehaviour
         float Z = Random.Range(-walkpointRange, walkpointRange);
         float X = Random.Range(-walkpointRange, walkpointRange);
 
-        walkpoint = new Vector3(transform.position.x + X, transform.position.y, transform.position.z +Z);
+        walkpoint = new Vector3(transform.position.x + X, transform.position.y, transform.position.z + Z);
 
         if (Physics.Raycast(walkpoint, -transform.up, 2f, isGround))
         {
@@ -132,26 +170,41 @@ public class AIscript : MonoBehaviour
 
     private void chasing()
     {
+        AiAnimator.SetBool("isWalking", true);
         AI.SetDestination(currentTarget.position);
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionStay(Collision collider)
     {
-        AiAnimator.SetBool("isWalking", false);
+        //AiAnimator.SetBool("isWalking", false);
         currentTime += Time.deltaTime;
-        if (collision.transform == currentTarget && isEating)
+        if (collider.transform == currentTarget && isEating)
         {
-            AiAnimator.SetBool("isEating",true);           
+            AiAnimator.SetBool("isEating", true);
             pickUpCount += 1;
-            if(pickUpCount >= 10)
+            if (pickUpCount >= 2)
             {
-                collision.gameObject.GetComponent<toastScore>().pickUp(false);
+                collider.gameObject.GetComponent<toastScore>().pickUp(false);
                 pickUpCount = 0;
                 isEating = false;
                 currentTime = 0;
                 AiAnimator.SetBool("isEating", false);
             }
-               
+
         }
+    }
+
+    //fleeing
+    private void fleeing()
+    {
+        isfleeing = true;
+        AiAnimator.SetBool("isFleeing", true);
+        //Debug.Log("fleeing");
+        Vector3 dirtoPlayer = transform.position - player.transform.position;
+        Vector3 pos = transform.position + dirtoPlayer;
+
+        AI.SetDestination(pos*5);
+        
+        
     }
 }

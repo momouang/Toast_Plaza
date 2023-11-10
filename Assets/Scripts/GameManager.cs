@@ -90,11 +90,23 @@ public class GameManager : MonoBehaviour
         updateUI();
     }
 
+    public void loseScore(float point)
+    {
+        totalScore -= point;
+        //scoreUP = true;
+        updateUI();
+    }
+
 
 
     void updateUI()
     {
+        if (totalScore <= 0)
+        {
+            totalScore = 0;
+        }
         score.text = totalScore.ToString();
+
     }
 
 }

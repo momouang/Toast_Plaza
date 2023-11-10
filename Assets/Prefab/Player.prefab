@@ -4351,6 +4351,7 @@ MonoBehaviour:
     m_Bits: 8
   jumpHeight: 1
   jumpCount: 5
+  hitCount: 0
   maxHealth: 1000
   currentHealth: 1000
   gamemanager: {fileID: 0}
@@ -4363,6 +4364,11 @@ MonoBehaviour:
   - {fileID: 7062861920147673457, guid: fafbb6a6d3bdf4ed48baff9e2f7fa2f9, type: 3}
   - {fileID: 7705748368689049611, guid: 1e2a36e94c6424705a6e6debfbb3656c, type: 3}
   assHole: {fileID: 5228517067116569774}
+  poopCount: 0
+  snappingPoint: {fileID: 0}
+  isSnapping: 0
+  offset: {x: 0, y: 0, z: 0}
+  isfleeing: 0
 --- !u!64 &5228517067660418408
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4726,8 +4732,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6328342420688861686}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.03, y: 0.52, z: 0.45}
+  m_LocalRotation: {x: -0.26761857, y: -0, z: -0, w: 0.96352494}
+  m_LocalPosition: {x: -9.03, y: 0.4828978, z: 0.46030504}
   m_LocalScale: {x: 0.5539433, y: 0.47153115, z: 0.6560433}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4738,7 +4744,7 @@ Transform:
   - {fileID: 1037632146278951415}
   m_Father: {fileID: 4911839123029045374}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -31.045, y: 0, z: 0}
 --- !u!33 &3893778410868602821
 MeshFilter:
   m_ObjectHideFlags: 0
