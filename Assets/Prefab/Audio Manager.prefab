@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &548011511075656520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548011511075656522}
+  - component: {fileID: 548011511075656523}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548011511075656522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548011511075656520}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6530638, y: 0.12887613, z: -0.77042526}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &548011511075656523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548011511075656520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a93d8521c614498aa8086627c294e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: BGM(skyloop)
+    clip: {fileID: 8300000, guid: ec923edeea8b6408486bfdfd90620f48, type: 3}
+    volume: 0.511
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: BGM(birds)
+    clip: {fileID: 8300000, guid: 779a0160bbc4d4fa5a1bef13a8f0ece2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: BGM(pixel)
+    clip: {fileID: 8300000, guid: 82215635f599c4f74b2e4f1a3bec7785, type: 3}
+    volume: 0.375
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PlayerToast
+    clip: {fileID: 8300000, guid: 6e48aeb6c43f44a4f9bad14ee30da758, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pigeon01
+    clip: {fileID: 8300000, guid: c64c52ca11a2441ed98ad075af8827ea, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pigeon02
+    clip: {fileID: 8300000, guid: 87e238ecc35fc41cdb13dff8ce5bba46, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pigeon03
+    clip: {fileID: 8300000, guid: d3d6ae6a9a9384c93b1ea1c8eb1a8372, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pigeon04
+    clip: {fileID: 8300000, guid: aec7a11dcefc040b1a52f05da98c32c8, type: 3}
+    volume: 0.276
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: TimeUp
+    clip: {fileID: 8300000, guid: d4a84cb883f04423a914b0ebbe02e999, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: AiToast
+    clip: {fileID: 8300000, guid: 2c90ab1ee13cf4692b9b810f9aa6605a, type: 3}
+    volume: 0.429
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GrannyShoot
+    clip: {fileID: 8300000, guid: 00330f4a1b3024be8ac451d956e26e9c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GrannyFire
+    clip: {fileID: 8300000, guid: 231b42dc1c81f4c868d05f55b5e960d2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PigeonPark
+    clip: {fileID: 8300000, guid: 51787c3d98b134b0c963df1facd76c5b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: PigeonFlee
+    clip: {fileID: 8300000, guid: a87fe49f52f0d4de589c7599578c154c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PigeonPoop
+    clip: {fileID: 8300000, guid: c2f90cd7a8ffe406581effb08a9941c2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Boing
+    clip: {fileID: 8300000, guid: 19d4589ac0ade46608d176834d812db5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: KidShout
+    clip: {fileID: 8300000, guid: 298199b6ef6354b498c53abd20670197, type: 3}
+    volume: 0.23
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: FakeToastEat
+    clip: {fileID: 8300000, guid: 33598067f4bcf480788535029505afce, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

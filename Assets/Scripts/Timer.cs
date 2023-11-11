@@ -5,6 +5,8 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    public AudioManager audioManager;
+
     [SerializeField]
     TextMeshProUGUI timerText;
 
@@ -24,7 +26,7 @@ public class Timer : MonoBehaviour
         if(remainingTime <= 0)
         {
             gameManager.endGame();
-            remainingTime = 0;
+            remainingTime = 0;          
             //Debug.Log("time's up!");
         }
 

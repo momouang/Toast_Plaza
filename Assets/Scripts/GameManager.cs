@@ -9,13 +9,15 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     [Header("GameScene")]
-    public player player;
+    public AudioManager audioManager;
+    public Player player;
     public GameObject Overlay;
     public TMP_Text totalText;
     public TMP_Text poopTotal;
     public TMP_Text hitTotal;
     public bool isPlaying;
     public bool gameOver;
+    public bool ischangingScene = false;
     public float restartDelay = 2f;
 
     [Header("Score")]
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //audioManager.Play("BGM(birds)");
         isPlaying = true;
         Overlay.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         if(gameOver == false)
         {
+            audioManager.Play("TimeUp");
             gameOver = true;
             isPlaying = false;
             Cursor.lockState = CursorLockMode.Confined;
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("momo");
+        ischangingScene = true;
 
     }
     public void Quit()

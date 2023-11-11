@@ -7,8 +7,9 @@ public class AIscript : MonoBehaviour
 {
 
     [Header("Main")]
+    public AudioManager audioManager;
     public GameObject player;
-    public player playerScript;
+    public Player playerScript;
     Animator AiAnimator;
     private NavMeshAgent AI;
     public Transform[] target;
@@ -32,6 +33,19 @@ public class AIscript : MonoBehaviour
 
     bool isfleeing;
 
+
+
+
+    private void OnEnable()
+    {
+        Player.Peck += OnPlayerPeck;
+    }
+
+    private void OnDisable()
+    {
+        Player.Peck -= OnPlayerPeck;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,23 +60,7 @@ public class AIscript : MonoBehaviour
         
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
-        /*if(playerScript.isfleeing == true)
-        {
-            Debug.Log("fleeing");
-            fleeing();
-        }
-        else if(distance >= 10f)
-        {
-            AiAnimator.SetBool("isFleeing", false);
-            playerScript.isfleeing = false;
-            searchTarget();
-        }*/
-
-        if(distance <= 3f)
-        {
-            fleeing();
-        }
-        else if(distance >= 8f)
+        if(distance >= 8f && isfleeing)
         {
             isfleeing = false;
             AiAnimator.SetBool("isFleeing", false);
@@ -136,6 +134,7 @@ public class AIscript : MonoBehaviour
 
     private void patrolling()
     {
+        //audioManager.Play("Pigeon04");
         AiAnimator.SetBool("isWalking", true);
         if (!walkpointSet)
         {
@@ -174,37 +173,43 @@ public class AIscript : MonoBehaviour
         AI.SetDestination(currentTarget.position);
     }
 
-    private void OnCollisionStay(Collision collider)
+    private void OnCollisionEnter(Collision collider)
     {
         //AiAnimator.SetBool("isWalking", false);
         currentTime += Time.deltaTime;
         if (collider.transform == currentTarget && isEating)
         {
-            AiAnimator.SetBool("isEating", true);
-            pickUpCount += 1;
-            if (pickUpCount >= 2)
-            {
-                collider.gameObject.GetComponent<toastScore>().pickUp(false);
-                pickUpCount = 0;
-                isEating = false;
-                currentTime = 0;
-                AiAnimator.SetBool("isEating", false);
-            }
+            AiAnimator.SetTrigger("isEating");
+            //pickUpCount += 1;
+            audioManager.Play("AiToast");
+            collider.gameObject.GetComponent<toastScore>().pickUp(false);
+            //pickUpCount = 0;
+            isEating = false;
+            //currentTime = 0;
+        }
+        
+    }
 
+    void OnPlayerPeck()
+    {
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+
+        if (distance <= 3f)
+        {
+            fleeing();
         }
     }
 
     //fleeing
     private void fleeing()
     {
+        audioManager.Play("PigeonFlee");
         isfleeing = true;
         AiAnimator.SetBool("isFleeing", true);
         //Debug.Log("fleeing");
         Vector3 dirtoPlayer = transform.position - player.transform.position;
         Vector3 pos = transform.position + dirtoPlayer;
 
-        AI.SetDestination(pos*5);
-        
-        
+        AI.SetDestination(pos*5);        
     }
 }

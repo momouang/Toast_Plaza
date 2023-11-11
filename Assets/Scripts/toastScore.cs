@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class toastScore : MonoBehaviour
 {
-
+    AudioManager audioManager;
     public int point;
     public int damagePoint;
     public GameManager gamemanager;
-    public player player;
+    public Player player;
     public AIscript Aiscript;
 
     [Header("When Hitting Player")]
@@ -27,6 +27,10 @@ public class toastScore : MonoBehaviour
     public ParticleSystem eatup_AI;
     public ParticleSystem hitBlast;
 
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     public void Update()
     {
@@ -52,7 +56,7 @@ public class toastScore : MonoBehaviour
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
             Instantiate(hitBlast, pos, rot);
-            other.gameObject.GetComponent<player>().TakeDamage(damagePoint);
+            other.gameObject.GetComponent<Player>().TakeDamage(damagePoint);
         }
     }
 
@@ -68,6 +72,7 @@ public class toastScore : MonoBehaviour
 
             if (pickupCount >= eatingAmount)
             {
+                audioManager.Play("PlayerToast");
                 GameObject.FindObjectOfType<GameManager>().gainScore(point);
                 Instantiate(eatup_player, gameObject.transform.position, Quaternion.identity);
                 Destroy(gameObject);
@@ -75,6 +80,7 @@ public class toastScore : MonoBehaviour
         }
         else
         {
+            audioManager.Play("AiToast");
             Instantiate(eatup_AI, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

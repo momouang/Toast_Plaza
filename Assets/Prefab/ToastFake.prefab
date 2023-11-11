@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb161c72ce084068b64b19f48a10dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 548011511075656523, guid: bc3873b4f5dfd4a7c8375c5e96514f73, type: 3}
   point: 10
   damagePoint: 5
   player: {fileID: 0}

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ToastFake : MonoBehaviour
 {
+    AudioManager audioManager;
     public int point;
     public int damagePoint;
-    public player player;
+    public Player player;
     public AIscript Aiscript;
     public GameObject[] toastPrefab;
 
@@ -26,10 +27,14 @@ public class ToastFake : MonoBehaviour
     public ParticleSystem eatup_AI;
     public ParticleSystem hitBlast;
 
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
 
     public void Update()
     {
-
         // when the toast can take damage to player
         isHurting = true;
         currentTime += Time.deltaTime;
@@ -39,7 +44,6 @@ public class ToastFake : MonoBehaviour
             currentTime = damageTime;
             isHurting = false;
         }
-
     }
 
     //hitting the player and take damage
@@ -51,7 +55,7 @@ public class ToastFake : MonoBehaviour
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
             Instantiate(hitBlast, pos, rot);
-            other.gameObject.GetComponent<player>().TakeDamage(damagePoint);
+            other.gameObject.GetComponent<Player>().TakeDamage(damagePoint);
         }
     }
 
@@ -67,6 +71,7 @@ public class ToastFake : MonoBehaviour
 
             if (pickupCount >= eatingAmount)
             {
+                audioManager.Play("FakeToastEat");
                 GameObject.FindObjectOfType<GameManager>().gainScore(point);
                 var toastNOW = Instantiate(toastPrefab[0], gameObject.transform.position, Quaternion.identity);
                 var toastNOW1 = Instantiate(toastPrefab[1], gameObject.transform.position, Quaternion.identity);
