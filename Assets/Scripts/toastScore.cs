@@ -56,6 +56,7 @@ public class toastScore : MonoBehaviour
             Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
             Vector3 pos = contact.point;
             Instantiate(hitBlast, pos, rot);
+            audioManager.Play("Hit");
             other.gameObject.GetComponent<Player>().TakeDamage(damagePoint);
         }
     }

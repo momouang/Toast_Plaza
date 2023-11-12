@@ -33,7 +33,7 @@ public class Granny : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         currentTime += Time.deltaTime;
