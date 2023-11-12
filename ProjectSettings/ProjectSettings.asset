@@ -794,10 +794,17 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
+<<<<<<< Updated upstream
   cloudProjectId: e284e11a-2792-49ee-8cb6-ac6aa8d2042e
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Toast_Plaza 2023-11-06_21-47-12
+=======
+  cloudProjectId: 0be64777-a186-4b52-9999-a5c3f3569219
+  framebufferDepthMemorylessMode: 0
+  qualitySettingsNames: []
+  projectName: Toast_Plaza 2023-11-12_19-29-01
+>>>>>>> Stashed changes
   organizationId: not_the_boxer
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
