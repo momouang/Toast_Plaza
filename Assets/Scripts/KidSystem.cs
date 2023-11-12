@@ -36,7 +36,7 @@ public class KidSystem : MonoBehaviour
     [Header("Losing Point when Caught Player")]
     public int point;
     public ParticleSystem hitParticle;
-    public player player;
+    public Player player;
 
     void Start()
     {
@@ -138,17 +138,6 @@ public class KidSystem : MonoBehaviour
             {
                 NextPoint();
                 Move(speedWalk);
-                /*if (m_WaitTime <= 0)
-                {
-                    NextPoint();
-                    Move(speedWalk);
-                    m_WaitTime = startWaitTime;
-                }
-                else
-                {
-                    Stop();
-                    m_WaitTime -= Time.deltaTime;
-                }*/
             }
         }
     }
@@ -243,7 +232,7 @@ public class KidSystem : MonoBehaviour
 
             float velocity = 1.5f;
             GameObject.FindObjectOfType<GameManager>().loseScore(50);
-            player.controller.Move(-pos * velocity + transform.up * 5f);
+            player.controller.Move(-pos * velocity + transform.up * 10f);
         }
 
     }

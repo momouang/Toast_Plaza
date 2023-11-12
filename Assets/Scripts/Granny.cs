@@ -8,6 +8,7 @@ public class Granny : MonoBehaviour
     Animator grannyAnimator;
 
     [Header("Shooting System")]
+    public AudioManager audioManager;
     public GameObject[] toastPrefab;
     public Transform shootingPoint;
     public float shootingTime = 10f;
@@ -32,7 +33,7 @@ public class Granny : MonoBehaviour
 
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         currentTime += Time.deltaTime;
@@ -89,6 +90,8 @@ public class Granny : MonoBehaviour
 
     void growToast()
     {
+        audioManager.Play("GrannyShoot");
+        audioManager.Play("GrannyFire");
         Instantiate(Fire, shootingPoint.position, Quaternion.LookRotation(shootingPoint.position - backRPG.position));
         var toastNOW = Instantiate(toastPrefab[Random.Range(0,4)], shootingPoint.position, Quaternion.identity);
         

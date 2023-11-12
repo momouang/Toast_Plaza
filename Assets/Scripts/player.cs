@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class player : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    public static event System.Action Peck;
+    public AudioManager audioManager;
 
     [Header("Movement")]
     public Animator playerAnimation;
@@ -30,7 +32,7 @@ public class player : MonoBehaviour
     public int currentHealth;
     public GameManager gamemanager;
 
-    [Header("Poop")]
+    [Header("Poop System")]
     public GameObject[] poop;
     public GameObject[] poopImg;
     public Transform assHole;
@@ -43,9 +45,12 @@ public class player : MonoBehaviour
     public bool isSnapping;
     public Vector3 offset;
 
+    [Header("Fleeing")]
     public bool isfleeing;
 
-
+    [Header("Pecking")]
+    public ParticleSystem peckParticle;
+    public Transform peckPoint;
 
     public void Start()
     {
@@ -64,6 +69,16 @@ public class player : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         bool isMoving = horizontal != 0 || vertical != 0;
+
+
+        //press C to peck
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            audioManager.Play("Pigeon03");
+            playerAnimation.SetTrigger("isPecking");
+            Instantiate(peckParticle, peckPoint.position, Quaternion.identity);
+            playerPeck();
+        }
 
        
 
@@ -114,8 +129,9 @@ public class player : MonoBehaviour
         }
 
         // jumping
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCount >0)
+        if(Input.GetKeyDown(KeyCode.Space) && jumpCount > 0)
         {
+            audioManager.Play("PigeonFlee");
             playerAnimation.SetBool("isFlying", true);
             jumpCount -= 1;
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -133,13 +149,14 @@ public class player : MonoBehaviour
                 foreach(Collider g in scannedObjects)
                 {
                     if(g.gameObject.CompareTag("Toast"))
-                    { 
+                    {
+                        //audioManager.Play("PlayerToast");
                         g.gameObject.GetComponent<toastScore>().pickUp(true);
                         
-
                     }
                     else if(g.gameObject.CompareTag("Toast Fake"))
                     {
+                        //audioManager.Play("PlayerToast");
                         g.gameObject.GetComponent<ToastFake>().pickUp2(true);
                     }
                 }
@@ -185,6 +202,7 @@ public class player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
+            audioManager.Play("PigeonPoop");
             poopCount += 1;
             RaycastHit hit;
 
@@ -211,11 +229,11 @@ public class player : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider other)
+    //pecking
+    void playerPeck()
     {
-        if (other.tag == "AI" && Input.GetKeyDown(KeyCode.C))
-        {
-            isfleeing = true;
-        }
+        Peck?.Invoke();
+
     }
+
 }

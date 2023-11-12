@@ -2172,6 +2172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4911839123029045374}
   - component: {fileID: 6998159612478865306}
+  - component: {fileID: 8563647813459338002}
   m_Layer: 0
   m_Name: Pigeon_modol
   m_TagString: Untagged
@@ -2217,6 +2218,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8563647813459338002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703301882263538636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdcafea3ba39421dbf650fc83b46aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4448441187514819779
 GameObject:
   m_ObjectHideFlags: 0
@@ -4339,6 +4352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70cdf3831a4bc468ca492b0575cb205b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
+  playerAnimation: {fileID: 0}
   controller: {fileID: 5228517067660418406}
   cam: {fileID: 0}
   speed: 6
@@ -4369,6 +4384,8 @@ MonoBehaviour:
   isSnapping: 0
   offset: {x: 0, y: 0, z: 0}
   isfleeing: 0
+  peckParticle: {fileID: 0}
+  peckPoint: {fileID: 0}
 --- !u!64 &5228517067660418408
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4732,7 +4749,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6328342420688861686}
-  m_LocalRotation: {x: -0.26761857, y: -0, z: -0, w: 0.96352494}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.03, y: 0.4828978, z: 0.46030504}
   m_LocalScale: {x: 0.5539433, y: 0.47153115, z: 0.6560433}
   m_ConstrainProportionsScale: 0
@@ -4744,7 +4761,7 @@ Transform:
   - {fileID: 1037632146278951415}
   m_Father: {fileID: 4911839123029045374}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -31.045, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3893778410868602821
 MeshFilter:
   m_ObjectHideFlags: 0
