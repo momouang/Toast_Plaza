@@ -12,7 +12,7 @@ public class NewKid : MonoBehaviour
         Idle
     }
 
-    public AudioManager audioManager;
+    AudioManager audioManager;
     Animator animator;
     public NavMeshAgent navMeshAgent;
     public Player player;
@@ -47,6 +47,8 @@ public class NewKid : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
+
     }
 
     private void Update()

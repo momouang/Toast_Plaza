@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static event System.Action Peck;
-    public AudioManager audioManager;
+    AudioManager audioManager;
 
     [Header("Movement")]
     public Animator playerAnimation;
@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         playerAnimation = GetComponentInChildren<Animator>();  
         currentHealth = maxHealth;
         gamemanager.setMaxHealth(maxHealth);

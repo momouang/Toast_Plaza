@@ -5,7 +5,6 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public AudioManager audioManager;
 
     [SerializeField]
     TextMeshProUGUI timerText;

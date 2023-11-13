@@ -8,7 +8,7 @@ public class Granny : MonoBehaviour
     Animator grannyAnimator;
 
     [Header("Shooting System")]
-    public AudioManager audioManager;
+    AudioManager audioManager;
     public GameObject[] toastPrefab;
     public Transform shootingPoint;
     public float shootingTime = 10f;
@@ -27,6 +27,7 @@ public class Granny : MonoBehaviour
 
     private void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         currentTime = 0;
         grannyAi = GetComponent<NavMeshAgent>();
         grannyAnimator = GetComponent<Animator>();

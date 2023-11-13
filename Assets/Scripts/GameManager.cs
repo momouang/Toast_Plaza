@@ -9,7 +9,8 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     [Header("GameScene")]
-    public AudioManager audioManager;
+    AudioManager audioManager;
+    //public LevelLoad levelLoad;
     public Player player;
     public GameObject Overlay;
     public TMP_Text totalText;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         //audioManager.Play("BGM(birds)");
         isPlaying = true;
         Overlay.SetActive(false);
@@ -59,14 +61,16 @@ public class GameManager : MonoBehaviour
             score.gameObject.SetActive(false);
             totalText.text = totalScore.ToString();
             poopTotal.text = "Pooped\n" + player.poopCount + " times";
-            hitTotal.text = "Hitted\n" + player.hitCount + " times";
+            hitTotal.text = "Hit\n" + player.hitCount + " times";
         }
 
     }
     public void Restart()
     {
+        //levelLoad.transitions.SetTrigger("Start");
         SceneManager.LoadScene("momo");
         ischangingScene = true;
+         //levelLoad.transitions.SetTrigger("LoadComplete");
 
     }
     public void Quit()

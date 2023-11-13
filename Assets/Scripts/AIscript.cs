@@ -7,7 +7,7 @@ public class AIscript : MonoBehaviour
 {
 
     [Header("Main")]
-    public AudioManager audioManager;
+    AudioManager audioManager;
     public GameObject player;
     public Player playerScript;
     Animator AiAnimator;
@@ -49,6 +49,7 @@ public class AIscript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         AiAnimator = GetComponentInChildren<Animator>();
         AI = GetComponent<NavMeshAgent>();
         pickUpCount = 0;
