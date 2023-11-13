@@ -5,12 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoad : MonoBehaviour
 {
+    public static LevelLoad instance;
     public Animator transitions;
     public float transitionTime;
     int currentIndex = 0;
 
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         DontDestroyOnLoad(gameObject);
         currentIndex = SceneManager.GetActiveScene().buildIndex;
     }

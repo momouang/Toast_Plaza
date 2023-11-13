@@ -51,6 +51,7 @@ MonoBehaviour:
   hitTotal: {fileID: 0}
   isPlaying: 0
   gameOver: 0
+  ischangingScene: 0
   restartDelay: 2
   totalScore: 0
   score: {fileID: 0}

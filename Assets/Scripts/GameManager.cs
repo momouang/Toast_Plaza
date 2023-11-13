@@ -34,11 +34,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        audioManager = FindObjectOfType<AudioManager>();
+        
         //audioManager.Play("BGM(birds)");
         isPlaying = true;
         Overlay.SetActive(false);
-        Overlay.GetComponent<CanvasGroup>().alpha = 1;
+        //Overlay.GetComponent<CanvasGroup>().alpha = 1;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     {
         if(gameOver == false)
         {
+            audioManager = FindObjectOfType<AudioManager>();
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             audioManager.Play("TimeUp");
             gameOver = true;
             isPlaying = false;
@@ -67,8 +69,19 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void startGame()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        LevelLoad levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoad>();
+        levelLoader.LoadLevel(1);
+        audioManager.Play("BGM(pixel)");
+        audioManager.Play("PigeonPark");
+        audioManager.Play("Pigeon04");
+    }
+
     public void backtoMenu()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         LevelLoad levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoad>();
         levelLoader.LoadLevel(0);
         audioManager.Stop("BGM(pixel)");
@@ -76,15 +89,15 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        //Overlay.SetActive(false);
+        Overlay.SetActive(false);
         LevelLoad levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoad>();
         levelLoader.LoadLevel(1);
 
     }
-    public void Quit()
+    /*public void Quit()
     {
         Application.Quit();
-    }
+    }*/
 
 
 

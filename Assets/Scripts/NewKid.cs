@@ -239,7 +239,7 @@ public class NewKid : MonoBehaviour
 
             float velocity = 1.5f;
             GameObject.FindObjectOfType<GameManager>().loseScore(50);
-            player.controller.Move(-pos * velocity + transform.up * 2f);
+            player.controller.Move(-pos * velocity + transform.up);
         }
     }
 

@@ -114,6 +114,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  point: 0
+  hitParticle: {fileID: 0}
+  player: {fileID: 0}
 --- !u!95 &8442394421184040717
 Animator:
   serializedVersion: 5

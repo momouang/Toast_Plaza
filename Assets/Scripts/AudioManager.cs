@@ -33,12 +33,12 @@ public class AudioManager : MonoBehaviour
     }
 
     //Play entry music here.
-    void Start()
+    /*void Start()
     {
         Play("BGM(pixel)");
         Play("PigeonPark");
         Play("Pigeon04");
-    }
+    }*/
 
     public void Play (string name)
     {
