@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("GameScene")]
     AudioManager audioManager;
-    //public LevelLoad levelLoad;
     public Player player;
     public GameObject Overlay;
     public TMP_Text totalText;
@@ -32,12 +31,14 @@ public class GameManager : MonoBehaviour
     [Header("Timer")]
     public Timer timer;
 
+
     private void Start()
     {
         audioManager = FindObjectOfType<AudioManager>();
         //audioManager.Play("BGM(birds)");
         isPlaying = true;
         Overlay.SetActive(false);
+        Overlay.GetComponent<CanvasGroup>().alpha = 1;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -65,12 +66,19 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public void backtoMenu()
+    {
+        LevelLoad levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoad>();
+        levelLoader.LoadLevel(0);
+        audioManager.Stop("BGM(pixel)");
+    }
+
     public void Restart()
     {
-        //levelLoad.transitions.SetTrigger("Start");
-        SceneManager.LoadScene("momo");
-        ischangingScene = true;
-         //levelLoad.transitions.SetTrigger("LoadComplete");
+        //Overlay.SetActive(false);
+        LevelLoad levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoad>();
+        levelLoader.LoadLevel(1);
 
     }
     public void Quit()

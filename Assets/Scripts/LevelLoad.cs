@@ -7,15 +7,17 @@ public class LevelLoad : MonoBehaviour
 {
     public Animator transitions;
     public float transitionTime;
+    int currentIndex = 0;
 
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        currentIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
-    public void LoadLevel()
+    public void LoadLevel(int index)
     {
-        StartCoroutine(loadLevelTime(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(loadLevelTime(index));
         
     }
 
